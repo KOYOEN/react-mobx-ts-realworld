@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import GuestNav from "./GuestUl";
 
 class Nav extends React.Component {
+
   render() {
     return (
       <nav className={"navbar"}>

@@ -1,9 +1,15 @@
 export interface User {
-  username: string,
-  email: string,
-  bio: string | null
-  image: string | null,
-  token?: string,
+  "user": {
+    id?: number,
+    email: string,
+    username?: string,
+    bio?: string
+    image?: string
+    token?: string,
+    password?: string,
+    createdAt?: string,
+    updatedAt?: string,
+  }
 }
 
 export interface Profile {

@@ -1,13 +1,10 @@
-
+import { User } from "./model"
 const APIURL = "https://conduit.productionready.io/api";
-
-
-
 
 
 const axios = require('axios');
 
-const getUserToken = (email, password) => {
+export const getUserToken = ({user: {email, password}}: User) => {
   return axios({
     method: 'post',
     url: APIURL,
@@ -20,12 +17,12 @@ const getUserToken = (email, password) => {
   });
 }
 
-const Auth = {
+export const Auth = {
   current: () => axios({
     method:'get',
     url: APIURL + "/user"
   }),
-  login: (email, password) => axios({
+  login: ({user: {email, password}}: User) => axios({
     method: 'post',
     url: APIURL + "/users/login",
     data: {
@@ -35,7 +32,7 @@ const Auth = {
       }
     }
   }),
-  register: (username, email, password) => axios({
+  register: ({user: {username, email, password}}: User) => axios({
     method: 'post',
     url: APIURL + "/users",
     data: {
@@ -46,7 +43,7 @@ const Auth = {
       }
     }
   }),
-  update: (username, email, password, image, bio) => axios({
+  update: ({user: {username, email}}: User) => axios({
     method: 'put',
     url: APIURL + "/user",
     data: {

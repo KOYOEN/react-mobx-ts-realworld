@@ -24,7 +24,7 @@ class MainStore {
   }
 
   @action
-  static setToken(token) {
+  static setToken(token: string) {
     this.instance.token = token;
   }
 }

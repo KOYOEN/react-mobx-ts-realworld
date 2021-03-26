@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import { Home, Login } from "./pages";
 import { Nav } from "./components"
+import { UserStore } from "./stores"
 
 class App extends React.Component {
 

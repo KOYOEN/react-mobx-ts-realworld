@@ -1,22 +1,53 @@
-import {action, observable} from "mobx";
-import agent from "../agent";
+import {action, observable, set} from "mobx";
+import { Auth } from "../agent";
 import {User, Error} from "../model";
+import {AxiosError, AxiosResponse} from "axios";
 
-class UserStore {
+export class UserStore {
+  private static instance:UserStore;
   @observable currentUser:User;
   @observable loadingUser:boolean;
 
-  @observable errors:Error[] = undefined;
+  @observable errors:AxiosError;
 
 
-  @action
-  pullUser() {
-    this.loadingUser = true;
-    return agent.Auth.current()
-      .then(action(({ user }) => { this.currentUser = user; }))
-      .catch((err) => this.errors = err)
-      .finally(action(() => { this.loadingUser = false }));
+  public static getInstance() {
+    return this.instance || (this.instance = new this());
   }
 
+  setUser = (user: User) => {
+    const {bio, createdAt, email, id, image, token, updatedAt, username}:User = user;
+    this.currentUser = {
+      id,
+      email,
+      bio,
+      image,
+      token,
+      username,
+      createdAt,
+      updatedAt
+    };
+  }
+
+
+
+  @action async pullUser() {
+    try {
+      this.loadingUser = true;
+      const {data: {user}} = await Auth.current();
+      this.setUser(user);
+    }
+    catch (e) {
+      console.log(e);
+    }
+    finally {
+      this.loadingUser = false;
+    }
+  }
+
+
+  @action forgetUser() {
+    this.currentUser = undefined;
+  }
 
 }

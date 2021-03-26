@@ -1,12 +1,62 @@
-.auth-page {
+@green: #5cb85c;
+@blue: #66afe9;
+@white: #ffffff;
+@gray: #55595c;
 
-}
+@fs: 20px;
 
-.container {
-
-}
 
 .row {
+  text-align: center;
+  width: 450px;
+
+  margin: 0 auto;
+}
+
+.text-h1-center {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.text-p-center {
+  margin-bottom: 16px;
+}
+
+.text-link-center {
+  color: @green;
+  text-decoration: none;
 
 }
 
+.form-input {
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  width: 400px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  font: inherit;
+  font-size: @fs;
+  color: @gray;
+  border-radius: 4px;
+  &:focus {
+    border-color: @blue;
+    outline: none;
+  }
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-btn {
+  display: block;
+  padding: 12px 24px;
+  margin-left: auto;
+  margin-right: 0;
+  background-color: @green;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: @white;
+  font-size: @fs;
+
+}

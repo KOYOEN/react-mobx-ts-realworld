@@ -1,6 +1,6 @@
 import {observable, action, reaction} from "mobx";
 
-class MainStore {
+export class MainStore {
   private static instance: MainStore;
   @observable appName = 'Conduit';
   @observable token = window.localStorage.getItem('jwt');
@@ -24,10 +24,9 @@ class MainStore {
   }
 
   @action
-  static setToken(token: string) {
-    this.instance.token = token;
+  setToken (token: string) {
+    this.token = token;
   }
 }
 
-export default MainStore;
 

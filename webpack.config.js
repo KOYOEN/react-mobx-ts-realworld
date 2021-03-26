@@ -18,7 +18,9 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              '@babel/preset-env',
+              ['@babel/preset-env',{
+                "targets": {"chrome": "55"}
+              }],
               '@babel/preset-react',
               '@babel/preset-typescript'
             ],

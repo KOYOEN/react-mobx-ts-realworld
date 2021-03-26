@@ -1,1 +1,0 @@
-export { default as MainStore } from "./mainStore";

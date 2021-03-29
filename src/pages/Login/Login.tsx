@@ -1,18 +1,26 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { AuthStore } from "../../stores";
+import {AuthStore, MainStore, UserStore} from "../../stores";
 import styles from "./login.module.less";
 
-export class Login extends React.Component {
+interface Props {
+  mainStore: MainStore,
+  authStore: AuthStore,
+  userStore: UserStore
+}
+
+export class Login extends React.Component<Props, {}> {
+
+  constructor(props: Props) {
+    super(props);
+  }
 
   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.currentTarget;
     const email = target.email.value || '';
     const password = target.password.value || '';
-
-    const authStore = AuthStore.getInstance();
-
+    const authStore = this.props.authStore;
     if (email == '' || password == '') {
       return;
     }
@@ -23,7 +31,7 @@ export class Login extends React.Component {
     } catch (e) {
       console.log(e);
     } finally {
-      location.href = "/";
+      // location.href = "/";
     }
 
   }

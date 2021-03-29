@@ -20,6 +20,11 @@ export class MainStore {
   }
 
   static getInstance() {
+    if (this.instance) {
+      console.log("main_aged");
+    } else {
+      console.log("main_new");
+    }
     return this.instance || (this.instance = new this());
   }
 

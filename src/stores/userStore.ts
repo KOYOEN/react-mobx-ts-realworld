@@ -2,6 +2,7 @@ import {action, observable, set} from "mobx";
 import { Auth } from "../agent";
 import {User, Error} from "../model";
 import {AxiosError, AxiosResponse} from "axios";
+import {asyncAction} from "mobx-utils";
 
 export class UserStore {
   private static instance:UserStore;
@@ -15,27 +16,12 @@ export class UserStore {
     return this.instance || (this.instance = new this());
   }
 
-  setUser = (user: User) => {
-    const {bio, createdAt, email, id, image, token, updatedAt, username}:User = user;
-    this.currentUser = {
-      id,
-      email,
-      bio,
-      image,
-      token,
-      username,
-      createdAt,
-      updatedAt
-    };
-  }
-
-
-
-  @action async pullUser() {
+  @asyncAction
+  async pullUser() {
     try {
       this.loadingUser = true;
       const {data: {user}} = await Auth.current();
-      this.setUser(user);
+      this.currentUser = user;
     }
     catch (e) {
       console.log(e);

@@ -4,6 +4,7 @@ import { MainStore } from "./mainStore";
 import { UserStore } from "./userStore";
 import {User} from "../model";
 import {AxiosError, AxiosResponse} from "axios";
+import {asyncAction} from "mobx-utils";
 
 export class AuthStore {
   private static instance: AuthStore;
@@ -16,7 +17,6 @@ export class AuthStore {
     email: '',
     password: '',
   };
-
 
   public static getInstance() {
     return this.instance || (this.instance = new this());
@@ -43,7 +43,8 @@ export class AuthStore {
     this.values.password = '';
   }
 
-  @action async login() {
+  @asyncAction
+  async login() {
     try {
       this.inProgress = true;
       this.errors = undefined;
@@ -51,7 +52,7 @@ export class AuthStore {
       const userStore = UserStore.getInstance();
       const res = await Auth.login(this.values);
       mainStore.setToken(res.data.user.token);
-      await userStore.pullUser()
+      await userStore.pullUser();
 
     } catch (e) {
       console.log(e);

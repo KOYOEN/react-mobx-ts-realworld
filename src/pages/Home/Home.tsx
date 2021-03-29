@@ -1,11 +1,20 @@
 import React from 'react';
-import { UserStore } from "../../stores";
+import {AuthStore, MainStore, UserStore} from "../../stores";
 import { Banner } from "../../components";
 
+interface Props {
+  mainStore: MainStore,
+  authStore: AuthStore,
+  userStore: UserStore
+}
 
-class Home extends React.Component {
+
+class Home extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
   render() {
-    console.log(UserStore.getInstance());
+    console.log(this.props.userStore);
     return (
       <div className="home-page">
         <Banner />

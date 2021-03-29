@@ -5,22 +5,17 @@ import {AxiosError, AxiosResponse} from "axios";
 import {asyncAction} from "mobx-utils";
 
 export class UserStore {
-  private static instance:UserStore;
   @observable currentUser:User;
   @observable loadingUser:boolean;
 
   @observable errors:AxiosError;
 
 
-  public static getInstance() {
-    return this.instance || (this.instance = new this());
-  }
 
-  @asyncAction
-  async pullUser() {
+  pullUser(res) {
     try {
       this.loadingUser = true;
-      const {data: {user}} = await Auth.current();
+      const {data: {user}} = res;
       this.currentUser = user;
     }
     catch (e) {
@@ -36,4 +31,9 @@ export class UserStore {
     this.currentUser = undefined;
   }
 
+  private static instance:UserStore;
+
+  public static getInstance() {
+    return this.instance || (this.instance = new this());
+  }
 }

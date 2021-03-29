@@ -1,18 +1,28 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import {Link, RouteComponentProps } from "react-router-dom";
 import {AuthStore, MainStore, UserStore} from "../../stores";
 import styles from "./login.module.less";
+import {observer} from "mobx-react";
+import {action, computed, observable} from "mobx";
+import {Error} from "../../components";
 
-interface Props {
-  mainStore: MainStore,
-  authStore: AuthStore,
-  userStore: UserStore
+interface Props extends RouteComponentProps {
+
 }
 
-export class Login extends React.Component<Props, {}> {
-
+@observer
+export class Login extends React.Component<Props> {
+  @observable isSuccess: boolean = true;
   constructor(props: Props) {
     super(props);
+  }
+
+  @computed
+  get renderError() {
+    if (this.isSuccess === true) {
+      return null;
+    }
+    return <Error />;
   }
 
   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,18 +30,20 @@ export class Login extends React.Component<Props, {}> {
     const target = event.currentTarget;
     const email = target.email.value || '';
     const password = target.password.value || '';
-    const authStore = this.props.authStore;
+    const authStore = AuthStore.getInstance();
     if (email == '' || password == '') {
       return;
     }
     authStore.setEmail(email);
     authStore.setPassword(password);
     try {
-      await authStore.login();
-    } catch (e) {
+      this.isSuccess = await authStore.login();
+      if (this.isSuccess) {
+        this.props.history.push('/');
+      }
+    }
+    catch (e) {
       console.log(e);
-    } finally {
-      // location.href = "/";
     }
 
   }
@@ -45,12 +57,13 @@ export class Login extends React.Component<Props, {}> {
             <p className={styles['text-p-center']}>
               <Link to={'/register'} className={styles['text-link-center']}>Need an account?</Link>
             </p>
+            {this.renderError}
             <form onSubmit={this.handleSubmit}>
               <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="text" name="email" placeholder={"Email"}/>
+                <input className={styles['form-input']} type="text" name="email" placeholder={"Email"} />
               </fieldset>
               <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="password" name="password" placeholder={"Password"}/>
+                <input className={styles['form-input']} type="password" name="password" placeholder={"Password"} />
               </fieldset>
               <button className={styles['form-btn']}>Sign in</button>
             </form>

@@ -43,7 +43,6 @@ export class AuthStore {
     this.values.password = '';
   }
 
-  @asyncAction
   async login() {
     try {
       this.inProgress = true;
@@ -51,12 +50,44 @@ export class AuthStore {
       const mainStore = MainStore.getInstance();
       const userStore = UserStore.getInstance();
       const res = await Auth.login(this.values);
-      mainStore.setToken(res.data.user.token);
-      await userStore.pullUser();
-
-    } catch (e) {
+      if (res.status === 200) {
+        mainStore.setToken(res.data.user.token);
+        userStore.pullUser(res);
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    catch (e) {
       console.log(e);
-    } finally {
+    }
+    finally {
+      this.inProgress = false;
+    }
+  }
+
+  async register() {
+    try {
+      this.inProgress = true;
+      this.errors = undefined;
+      const mainStore = MainStore.getInstance();
+      const userStore = UserStore.getInstance();
+      const res = await Auth.register(this.values);
+      console.log(res);
+      // if (res === 200) {
+      //   mainStore.setToken(res.data.user.token);
+      //   userStore.pullUser(res);
+      //   return true;
+      // }
+      // else {
+      //   return false;
+      // }
+    }
+    catch (e) {
+      console.log(e);
+    }
+    finally {
       this.inProgress = false;
     }
   }

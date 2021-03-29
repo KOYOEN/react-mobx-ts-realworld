@@ -1,20 +1,17 @@
 import React from 'react';
 import {AuthStore, MainStore, UserStore} from "../../stores";
 import { Banner } from "../../components";
+import {observer} from "mobx-react";
 
 interface Props {
-  mainStore: MainStore,
-  authStore: AuthStore,
-  userStore: UserStore
 }
 
-
+@observer
 class Home extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
   }
   render() {
-    console.log(this.props.userStore);
     return (
       <div className="home-page">
         <Banner />

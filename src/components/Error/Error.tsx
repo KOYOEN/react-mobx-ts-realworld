@@ -1,20 +1,25 @@
 import React from "react";
 import styles from "./error.module.less";
+import {observer} from "mobx-react";
 import {computed} from "mobx";
+import {AuthStore} from "../../stores";
 
-const statement = {
-  invalid: "email or password is invalid",
-}
+
+@observer
 export class Error extends React.Component {
 
-  constructor(props) {
-    super(props);
+  @computed
+  get renderList() {
+    const authStore = AuthStore.getInstance();
+    return Object.entries(authStore.statement).map( (error, idx) => {
+      return <li key={idx}>{error.join(' ')}</li>;
+    });
   }
 
   render() {
     return (
       <ul className={styles['error-messages']}>
-        <li>{statement.invalid}</li>
+        {this.renderList}
       </ul>
     );
   }

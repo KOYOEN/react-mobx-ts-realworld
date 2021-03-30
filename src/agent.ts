@@ -1,5 +1,6 @@
 import { User } from "./model"
 import { MainStore } from "./stores";
+import {AxiosError, AxiosResponse} from "axios";
 const APIURL = "https://conduit.productionready.io/api";
 
 const mainStore = MainStore.getInstance();
@@ -20,42 +21,34 @@ export const Auth = {
       url: APIURL + "/user"
     })
   },
-  login: async ({ email, password }: User) => {
-    try {
-      const res = axios({
-        method: 'post',
-        url: APIURL + "/users/login",
-        data: {
-          "user": {
-            "email": email,
-            "password": password,
-          }
+  login: async ({email, password}: User) => {
+    return await axios({
+      method: 'post',
+      url: APIURL + "/users/login",
+      data: {
+        "user": {
+          "email": email,
+          "password": password,
         }
-      });
-      return res.data;
-    }
-    catch (e) {
-      return e.errors;
-    }
+      }})
+      .then((res:AxiosResponse<any>) => {return res; })
+      .catch((error:AxiosError) => {return error.response; })
+
+
   },
-  register: ({ username, email, password }: User) => {
-    try {
-      const res = axios({
-        method: 'post',
-        url: APIURL + "/users",
-        data: {
-          "user": {
-            "username": username,
-            "email": email,
-            "password": password,
-          }
+  register: async ({username, email, password}: User) => {
+    return await axios({
+      method: 'post',
+      url: APIURL + "/users",
+      data: {
+        "user": {
+          "username": username,
+          "email": email,
+          "password": password,
         }
-      });
-      return res.data;
-    }
-    catch (e) {
-      return e.errors;
-    }
+      }})
+      .then((res:AxiosResponse<any>) => { return res; })
+      .catch((error) => { return error.response; })
   },
   update: ({ username, email }: User) => {
     tokenPlugin();

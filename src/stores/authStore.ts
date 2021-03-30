@@ -6,11 +6,16 @@ import {User} from "../model";
 import {AxiosError, AxiosResponse} from "axios";
 import {asyncAction} from "mobx-utils";
 
+const mainStore = MainStore.getInstance();
+const userStore = UserStore.getInstance();
+
 export class AuthStore {
   private static instance: AuthStore;
 
   @observable inProgress: boolean = false;
   @observable errors: any = undefined;
+
+  @observable statement: object;
 
   @observable values: User = {
     username: '',
@@ -44,52 +49,38 @@ export class AuthStore {
   }
 
   async login() {
-    try {
-      this.inProgress = true;
-      this.errors = undefined;
-      const mainStore = MainStore.getInstance();
-      const userStore = UserStore.getInstance();
-      const res = await Auth.login(this.values);
-      if (res.status === 200) {
-        mainStore.setToken(res.data.user.token);
-        userStore.pullUser(res);
-        return true;
-      }
-      else {
-        return false;
-      }
+    this.inProgress = true;
+    this.errors = undefined;
+    const res = await Auth.login(this.values);
+    const ret = res.status === 200;
+    if (ret) {
+      mainStore.setToken(res.data.user.token);
+      userStore.pullUser(res);
+
     }
-    catch (e) {
-      console.log(e);
+    else {
+      this.statement = res.data.errors;
+
     }
-    finally {
-      this.inProgress = false;
-    }
+    this.inProgress = false;
+    return ret;
   }
 
   async register() {
-    try {
-      this.inProgress = true;
-      this.errors = undefined;
-      const mainStore = MainStore.getInstance();
-      const userStore = UserStore.getInstance();
-      const res = await Auth.register(this.values);
-      console.log(res);
-      // if (res === 200) {
-      //   mainStore.setToken(res.data.user.token);
-      //   userStore.pullUser(res);
-      //   return true;
-      // }
-      // else {
-      //   return false;
-      // }
+    this.inProgress = true;
+    this.errors = undefined;
+    const res = await Auth.register(this.values);
+    const ret = res.status === 200;
+    if (ret) {
+      mainStore.setToken(res.data.user.token);
+      userStore.pullUser(res);
+
+    } else {
+      this.statement = res.data.errors;
+
     }
-    catch (e) {
-      console.log(e);
-    }
-    finally {
-      this.inProgress = false;
-    }
+    this.inProgress = false;
+    return ret;
   }
 }
 

@@ -4,13 +4,23 @@ import {Link, RouteComponentProps} from "react-router-dom";
 import {computed, observable} from "mobx";
 import {Error} from "../../components";
 import {AuthStore} from "../../stores";
+import {observer} from "mobx-react";
 
 interface Props extends RouteComponentProps {
 
 }
 
+const authStore = AuthStore.getInstance();
+
+@observer
 export class Register extends React.Component<Props> {
   @observable isSuccess: boolean = true;
+
+  constructor(props) {
+    super(props);
+    authStore.statement = {};
+  }
+
   @computed
   get renderError() {
     if (this.isSuccess === true) {
@@ -25,21 +35,15 @@ export class Register extends React.Component<Props> {
     const username = target.username.value || '';
     const email = target.email.value || '';
     const password = target.password.value || '';
-    const authStore = AuthStore.getInstance();
-    if (email == '' || username == '' || password == '') {
-      this.isSuccess = false;
-      return;
-    }
+
+
     authStore.setUsername(username);
     authStore.setEmail(email);
     authStore.setPassword(password);
-    try {
-      await authStore.register();
-      if (this.isSuccess) {
-        this.props.history.push('/');
-      }
-    } catch (e) {
-      console.log(e);
+
+    this.isSuccess = await authStore.register();
+    if (this.isSuccess) {
+      this.props.history.push('/');
     }
   }
 
@@ -59,7 +63,7 @@ export class Register extends React.Component<Props> {
                 <input className={styles['form-input']} type="text" name="username" placeholder={"Username"}/>
               </fieldset>
               <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="email" name="email" placeholder={"Email"} value={"happy2473@gmail.com"}/>
+                <input className={styles['form-input']} type="email" name="email" placeholder={"Email"} />
               </fieldset>
               <fieldset className={styles['form-group']}>
                 <input className={styles['form-input']} type="password" name="password" placeholder={"Password"}/>

@@ -10,11 +10,15 @@ interface Props extends RouteComponentProps {
 
 }
 
+const authStore = AuthStore.getInstance();
+
 @observer
 export class Login extends React.Component<Props> {
   @observable isSuccess: boolean = true;
+
   constructor(props: Props) {
     super(props);
+    authStore.statement = {};
   }
 
   @computed
@@ -30,22 +34,14 @@ export class Login extends React.Component<Props> {
     const target = event.currentTarget;
     const email = target.email.value || '';
     const password = target.password.value || '';
-    const authStore = AuthStore.getInstance();
-    if (email == '' || password == '') {
-      return;
-    }
+
     authStore.setEmail(email);
     authStore.setPassword(password);
-    try {
-      this.isSuccess = await authStore.login();
-      if (this.isSuccess) {
-        this.props.history.push('/');
-      }
-    }
-    catch (e) {
-      console.log(e);
-    }
 
+    this.isSuccess = await authStore.login();
+    if (this.isSuccess) {
+      this.props.history.push('/')
+    }
   }
 
   render() {
@@ -60,7 +56,7 @@ export class Login extends React.Component<Props> {
             {this.renderError}
             <form onSubmit={this.handleSubmit}>
               <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="text" name="email" placeholder={"Email"} />
+                <input className={styles['form-input']} type="email" name="email" placeholder={"Email"} />
               </fieldset>
               <fieldset className={styles['form-group']}>
                 <input className={styles['form-input']} type="password" name="password" placeholder={"Password"} />

@@ -5,11 +5,15 @@ import {
 } from 'react-router-dom';
 import { Home, Login, Register } from "./pages";
 import { Nav } from "./components";
+import {MainStore, UserStore} from "./stores";
 
+const mainStore = MainStore.getInstance();
+const userStore = UserStore.getInstance();
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    userStore.pullUser();
   }
 
   render() {

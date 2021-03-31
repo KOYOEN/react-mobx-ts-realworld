@@ -17,9 +17,14 @@ export const Auth = {
   current: async () => {
     tokenPlugin();
     return axios({
-      method:'get',
+      method: 'get',
       url: APIURL + "/user"
     })
+      .then((res:AxiosResponse) => { return res; })
+      .catch((error:AxiosError) => {
+        console.log(error.response);
+        return alert('알 수 없는 오류가 발생했습니다. 다시 로그인 브탁드립니다.');
+      });
   },
   login: async ({email, password}: User) => {
     return await axios({
@@ -31,8 +36,8 @@ export const Auth = {
           "password": password,
         }
       }})
-      .then((res:AxiosResponse<any>) => {return res; })
-      .catch((error:AxiosError) => {return error.response; })
+      .then((res:AxiosResponse<any>) => { return res; })
+      .catch((error:AxiosError) => { return error.response; })
 
 
   },
@@ -50,7 +55,7 @@ export const Auth = {
       .then((res:AxiosResponse<any>) => { return res; })
       .catch((error) => { return error.response; })
   },
-  update: ({ username, email }: User) => {
+  update: async ({ username, email }: User) => {
     tokenPlugin();
     try {
       const res = axios({

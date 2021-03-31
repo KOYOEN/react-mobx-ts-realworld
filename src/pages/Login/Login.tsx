@@ -48,20 +48,20 @@ export class Login extends React.Component<Props> {
     return (
       <div className={"auth-page"}>
         <div className={'container'}>
-          <div className={styles['row']}>
-            <h1 className={styles['text-h1-center']}>Sign In</h1>
-            <p className={styles['text-p-center']}>
-              <Link to={'/register'} className={styles['text-link-center']}>Need an account?</Link>
+          <div className={styles.row}>
+            <h1 className={styles.textH1Center}>Sign In</h1>
+            <p className={styles.textPCenter}>
+              <Link to={'/register'} className={styles.textLinkCenter} >Need an account?</Link>
             </p>
             {this.renderError}
             <form onSubmit={this.handleSubmit}>
-              <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="email" name="email" placeholder={"Email"} />
+              <fieldset className={styles.formGroup}>
+                <input className={styles.formInput} type="email" name="email" placeholder={"Email"} />
               </fieldset>
-              <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="password" name="password" placeholder={"Password"} />
+              <fieldset className={styles.formGroup}>
+                <input className={styles.formInput} type="password" name="password" placeholder={"Password"} />
               </fieldset>
-              <button className={styles['form-btn']}>Sign in</button>
+              <button className={styles.formBtn}>Sign in</button>
             </form>
           </div>
         </div>

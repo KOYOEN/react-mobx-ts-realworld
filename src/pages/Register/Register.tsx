@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../Login/login.module.less";
+import styles from "../Register/register.module.less";
 import {Link, RouteComponentProps} from "react-router-dom";
 import {computed, observable} from "mobx";
 import {Error} from "../../components";
@@ -52,23 +52,23 @@ export class Register extends React.Component<Props> {
     return (
       <div className={"auth-page"}>
         <div className={'container'}>
-          <div className={styles['row']}>
-            <h1 className={styles['text-h1-center']}>Sign Up</h1>
-            <p className={styles['text-p-center']}>
-              <Link to={'/login'} className={styles['text-link-center']}>Have an account?</Link>
+          <div className={styles.row}>
+            <h1 className={styles.textH1Center}>Sign Up</h1>
+            <p className={styles.textPCenter}>
+              <Link to={'/login'} className={styles.textLinkCenter}>Have an account?</Link>
             </p>
             {this.renderError}
             <form onSubmit={this.handleSubmit}>
-              <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="text" name="username" placeholder={"Username"}/>
+              <fieldset className={styles.formGroup}>
+                <input className={styles.formInput} type="text" name="username" placeholder={"Username"}/>
               </fieldset>
-              <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="email" name="email" placeholder={"Email"} />
+              <fieldset className={styles.formGroup}>
+                <input className={styles.formInput} type="email" name="email" placeholder={"Email"} />
               </fieldset>
-              <fieldset className={styles['form-group']}>
-                <input className={styles['form-input']} type="password" name="password" placeholder={"Password"}/>
+              <fieldset className={styles.formGroup}>
+                <input className={styles.formInput} type="password" name="password" placeholder={"Password"}/>
               </fieldset>
-              <button className={styles['form-btn']}>Sign Up</button>
+              <button className={styles.formBtn}>Sign Up</button>
             </form>
           </div>
         </div>

@@ -18,7 +18,7 @@ export class Error extends React.Component {
 
   render() {
     return (
-      <ul className={styles['error-messages']}>
+      <ul className={styles.errorMessages}>
         {this.renderList}
       </ul>
     );

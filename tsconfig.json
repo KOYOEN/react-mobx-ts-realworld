@@ -14,7 +14,7 @@
       {
         "name": "typescript-plugin-css-modules",
         "options": {
-          "classnameTransform": "dashes",
+          "classnameTransform": "camel",
         }
       }
     ]

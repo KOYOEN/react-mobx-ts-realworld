@@ -18,9 +18,9 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <nav className={styles['navbar']}>
-        <div className={styles['container']}>
-          <Link className={styles['navbar-brand']} to="/">conduit</Link>
+      <nav className={styles.navbar}>
+        <div className={styles.container}>
+          <Link className={styles.navbarBrand} to="/">conduit</Link>
           {this.renderUl}
         </div>
       </nav>

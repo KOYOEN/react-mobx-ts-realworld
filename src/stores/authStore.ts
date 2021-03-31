@@ -55,7 +55,7 @@ export class AuthStore {
     const ret = res.status === 200;
     if (ret) {
       mainStore.setToken(res.data.user.token);
-      userStore.pullUser(res);
+      userStore.loggedUser(res);
 
     }
     else {
@@ -73,9 +73,10 @@ export class AuthStore {
     const ret = res.status === 200;
     if (ret) {
       mainStore.setToken(res.data.user.token);
-      userStore.pullUser(res);
+      userStore.loggedUser(res);
 
-    } else {
+    }
+    else {
       this.statement = res.data.errors;
 
     }

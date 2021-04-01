@@ -3,7 +3,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import { Home, Login, Register } from "./pages";
+import { Home, Login, Register, Settings } from "./pages";
 import { Nav } from "./components";
 import {MainStore, UserStore} from "./stores";
 
@@ -13,7 +13,6 @@ const userStore = UserStore.getInstance();
 class App extends React.Component {
   constructor(props) {
     super(props);
-    userStore.pullUser();
   }
 
   render() {
@@ -22,13 +21,17 @@ class App extends React.Component {
         <Nav />
         <Switch>
           <Route path={"/register"} component={Register}/>
+          <Route path={"/settings"} component={Settings}/>
           <Route path={"/login"} component={Login} />
           {/*<Route path={"/editor"} component={Editor}/>*/}
-          {/*<Route path={"/settings"} component={Settings}/>*/}
           <Route path={"/"} component={Home}/>
         </Switch>
       </div>
     );
+  }
+
+  async componentDidMount() {
+    await userStore.pullUser();
   }
 }
 

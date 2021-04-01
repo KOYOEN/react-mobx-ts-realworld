@@ -5,27 +5,37 @@ import {computed} from "mobx";
 import {UserStore} from "../../../stores";
 import {observer} from "mobx-react";
 
+const userStore = UserStore.getInstance();
+
+@observer
 class LoginUl extends React.Component {
   @computed
   get getUsername() {
-    const userStore = UserStore.getInstance();
     return userStore.currentUser.username;
   }
+
+  @computed
+  get getImagePath() {
+    return userStore.currentUser.image;
+  }
+
   render() {
-    const username = this.getUsername;
     return (
       <ul>
-        <li className={styles['nav-item']}>
-          <Link className={styles['nav-link']} to={"/"}>Home</Link>
+        <li className={styles.navItem}>
+          <Link className={styles.navLink} to={"/"}>Home</Link>
         </li>
-        <li className={styles['nav-item']}>
-          <Link className={styles['nav-link']} to={"/editor"}>New Post</Link>
+        <li className={styles.navItem}>
+          <Link className={styles.navLink} to={"/editor"}>New Post</Link>
         </li>
-        <li className={styles['nav-item']}>
-          <Link className={styles['nav-link']} to={"/settings"}>Settings</Link>
+        <li className={styles.navItem}>
+          <Link className={styles.navLink} to={"/settings"}>Settings</Link>
         </li>
-        <li className={styles['nav-item']}>
-          <Link className={styles['nav-link']} to={"@" + username}>{username}</Link>
+        <li className={styles.navItem}>
+          <Link className={styles.navLink} to={"@" + this.getUsername}>
+            <img className={styles.userPic} src={this.getImagePath} />
+            {this.getUsername}
+          </Link>
         </li>
       </ul>
     );

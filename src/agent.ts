@@ -22,8 +22,7 @@ export const Auth = {
     })
       .then((res:AxiosResponse) => { return res; })
       .catch((error:AxiosError) => {
-        console.log(error.response);
-        return alert('알 수 없는 오류가 발생했습니다. 다시 로그인 브탁드립니다.');
+        return error.response;
       });
   },
   login: async ({email, password}: User) => {
@@ -37,7 +36,7 @@ export const Auth = {
         }
       }})
       .then((res:AxiosResponse<any>) => { return res; })
-      .catch((error:AxiosError) => { return error.response; })
+      .catch((error:AxiosError) => { return error.response; });
 
 
   },
@@ -55,20 +54,23 @@ export const Auth = {
       .then((res:AxiosResponse<any>) => { return res; })
       .catch((error) => { return error.response; })
   },
-  update: async ({ username, email }: User) => {
+  update: async ( {username, email, password, bio, image}: User) => {
     tokenPlugin();
     try {
-      const res = axios({
+      return await axios({
         method: 'put',
         url: APIURL + "/user",
         data: {
           "user": {
             "username": username,
             "email": email,
+            "password": password,
+            "bio": bio,
+            "image": image,
           }
-        }
-      });
-      return res.data;
+        }})
+        .then((res: AxiosResponse) => { return res; })
+        .catch((error: AxiosError) => { return error.response });
     }
     catch (e) {
        return e.errors;

@@ -5,13 +5,17 @@ import {computed} from "mobx";
 import {AuthStore} from "../../stores";
 
 
+interface Props {
+  statement: object
+}
+
 @observer
-export class Error extends React.Component {
+export class Error extends React.Component<Props> {
 
   @computed
   get renderList() {
-    const authStore = AuthStore.getInstance();
-    return Object.entries(authStore.statement).map( (error, idx) => {
+
+    return Object.entries(this.props.statement).map( (error, idx) => {
       return <li key={idx}>{error.join(' ')}</li>;
     });
   }

@@ -14,19 +14,11 @@ const authStore = AuthStore.getInstance();
 
 @observer
 export class Login extends React.Component<Props> {
-  @observable isSuccess: boolean = true;
-
-  constructor(props: Props) {
-    super(props);
-    authStore.statement = {};
-  }
+  @observable statement: Object;
 
   @computed
   get renderError() {
-    if (this.isSuccess === true) {
-      return null;
-    }
-    return <Error />;
+    return this.statement && <Error statement={this.statement} />
   }
 
   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,8 +30,8 @@ export class Login extends React.Component<Props> {
     authStore.setEmail(email);
     authStore.setPassword(password);
 
-    this.isSuccess = await authStore.login();
-    if (this.isSuccess) {
+    this.statement = await authStore.login();
+    if (this.statement === null) {
       this.props.history.push('/')
     }
   }

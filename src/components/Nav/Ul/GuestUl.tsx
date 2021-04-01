@@ -7,14 +7,14 @@ class GuestUl extends React.Component {
   render() {
     return (
       <ul className="">
-        <li className={styles['nav-item']}>
-          <Link className={styles['nav-link']} to={"/"}>Home</Link>
+        <li className={styles.navItem}>
+          <Link className={styles.navLink} to={"/"}>Home</Link>
         </li>
-        <li className={styles['nav-item']}>
-          <Link className={styles['nav-link']} to={"/login"}>Sign in</Link>
+        <li className={styles.navItem}>
+          <Link className={styles.navLink} to={"/login"}>Sign in</Link>
         </li>
-        <li className={styles['nav-item']}>
-          <Link className={styles['nav-link']} to={"/register"}>Sign up</Link>
+        <li className={styles.navItem}>
+          <Link className={styles.navLink} to={"/register"}>Sign up</Link>
         </li>
       </ul>
     );

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel": "babel src -w -d dist",
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack serve --env development"
+    "dev": "webpack serve --mode development"
   },
   "keywords": [],
   "author": "",

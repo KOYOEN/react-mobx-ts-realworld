@@ -12,7 +12,6 @@ class Nav extends React.Component {
   @computed
   get renderUl() {
     const userStore = UserStore.getInstance();
-    console.log(userStore.currentUser ? "True" : "False");
     return (userStore.currentUser) ? <LoginUl /> : <GuestUl />
   }
 

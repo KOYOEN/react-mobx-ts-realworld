@@ -1,0 +1,95 @@
+@import "../../app.less";
+
+.settingPage {
+  display: block;
+}
+
+.container {
+  display: block;
+}
+
+.row {
+  text-align: center;
+  width: 450px;
+  padding: 0 25px;
+  margin: 0 auto;
+}
+
+.textH1Center {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.textPCenter {
+  margin-bottom: 16px;
+}
+
+.formInput {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  width: calc(100% - 50px);
+  padding: 12px 24px;
+  font: inherit;
+  font-size: @fs;
+  color: @gray;
+  border-radius: 4px;
+  &:focus {
+    border-color: @blue;
+    outline: none;
+  }
+}
+
+.formTextArea {
+  width: calc(100% - 50px);
+  height: 200px;
+  padding: 12px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: @fs;
+  border-radius: 4px;
+  color: @gray;
+  resize: vertical;
+  &:focus {
+    border-color: @blue;
+    outline: none;
+  }
+}
+
+.formGroup {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.btn {
+  display: block;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  font-size: @fs;
+}
+
+.formBtn {
+  margin-left: auto;
+  margin-right: 0;
+  background-color: @green;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: @white;
+  font-size: @fs;
+  //cursor: not-allowed;
+}
+
+
+
+.logoutBtn {
+  display: block;
+  padding: 6px 24px;
+  background-color: @white;
+  border: 1px solid @red;
+  border-radius: 4px;
+  color: @red;
+  font-size: @fs;
+  &:focus {
+    border-color: @blue;
+    outline: none;
+  }
+}
+
+

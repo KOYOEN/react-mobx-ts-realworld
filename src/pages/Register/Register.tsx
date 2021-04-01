@@ -14,19 +14,15 @@ const authStore = AuthStore.getInstance();
 
 @observer
 export class Register extends React.Component<Props> {
-  @observable isSuccess: boolean = true;
+  @observable statement:object = null;
 
   constructor(props) {
     super(props);
-    authStore.statement = {};
   }
 
   @computed
   get renderError() {
-    if (this.isSuccess === true) {
-      return null;
-    }
-    return <Error />;
+    return this.statement && <Error statement={this.statement}/>;
   }
 
   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,8 +37,8 @@ export class Register extends React.Component<Props> {
     authStore.setEmail(email);
     authStore.setPassword(password);
 
-    this.isSuccess = await authStore.register();
-    if (this.isSuccess) {
+    this.statement = await authStore.register();
+    if (this.statement === null) {
       this.props.history.push('/');
     }
   }

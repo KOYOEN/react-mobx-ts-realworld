@@ -1,10 +1,10 @@
 import {action, observable, set} from "mobx";
 import { Auth } from "../agent";
 import {User, Error} from "../model";
-import {AuthStore} from "../stores";
+import {ArticleStore} from "./articleStore";
 
 
-
+const articleStore = ArticleStore.getInstance();
 
 export class UserStore{
   @observable currentUser:User = null;
@@ -32,6 +32,7 @@ export class UserStore{
       if (ret) {
         this.currentUser = res.data.user;
         this.settingUser = res.data.user;
+        articleStore.selectedTab = res.data.user.username;
       }
     }
     catch (e) {

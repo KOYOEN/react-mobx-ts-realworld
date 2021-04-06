@@ -1,4 +1,4 @@
-@import "../../app.less";
+@import "../../base";
 
 .navbar {
   padding: 8px 16px;
@@ -8,14 +8,17 @@
   line-height: 40px;
 }
 
-.container {
-  display: flex;
-  padding: 0 15px;
-  justify-content: space-between;
-}
 
 .navbarBrand {
   font-family: titillium web,sans-serif;
+  height: 40px;
+  line-height: 40px;
   font-size: 24px;
-  color: #5cb85c;
+  color: @green;
+}
+
+.row {
+  display: flex;
+  vertical-align: center;
+  justify-content: space-between;
 }

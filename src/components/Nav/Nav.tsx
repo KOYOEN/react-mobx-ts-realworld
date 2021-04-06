@@ -7,7 +7,7 @@ import {computed, observable} from "mobx";
 import {observer} from "mobx-react";
 
 @observer
-class Nav extends React.Component {
+export class Nav extends React.Component {
 
   @computed
   get renderUl() {
@@ -18,13 +18,14 @@ class Nav extends React.Component {
   render() {
     return (
       <nav className={styles.navbar}>
-        <div className={styles.container}>
-          <Link className={styles.navbarBrand} to="/">conduit</Link>
-          {this.renderUl}
+        <div className={"container"}>
+          <div className={styles.row}>
+            <Link className={styles.navbarBrand} to="/">conduit</Link>
+            {this.renderUl}
+          </div>
         </div>
       </nav>
     );
   }
 }
 
-export default Nav;

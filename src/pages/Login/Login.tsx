@@ -11,7 +11,7 @@ interface Props extends RouteComponentProps {
 }
 
 const authStore = AuthStore.getInstance();
-
+const userStore = UserStore.getInstance();
 @observer
 export class Login extends React.Component<Props> {
   @observable statement: Object;
@@ -32,7 +32,7 @@ export class Login extends React.Component<Props> {
 
     this.statement = await authStore.login();
     if (this.statement === null) {
-      this.props.history.push('/')
+      this.props.history.push(`/?author=${userStore.currentUser.username}`)
     }
   }
 

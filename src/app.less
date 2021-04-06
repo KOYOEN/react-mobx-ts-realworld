@@ -1,10 +1,4 @@
-@green: #5cb85c;
-@blue: #66afe9;
-@white: #ffffff;
-@gray: #55595c;
-@red: #b85c5c;
-
-@fs: 20px;
+@import "./base";
 
 :global {
   html, body, div, span, applet, object, iframe,
@@ -26,7 +20,7 @@
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    line-height: 1.5;
+    line-height: 1.2;
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
@@ -54,6 +48,7 @@
 
   a {
     text-decoration: none;
+    color: inherit;
   }
 
   * {
@@ -61,6 +56,8 @@
   }
 
   .container {
-
+    width: 1140px;
+    margin: 0 auto;
   }
+
 }

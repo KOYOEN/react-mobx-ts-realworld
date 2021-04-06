@@ -21,7 +21,7 @@ class LoginUl extends React.Component {
 
   render() {
     return (
-      <ul>
+      <ul className={styles.navList}>
         <li className={styles.navItem}>
           <Link className={styles.navLink} to={"/"}>Home</Link>
         </li>

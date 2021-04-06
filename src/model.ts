@@ -27,7 +27,7 @@ export interface SingleArticle {
   updatedAt: string,
   favorited: boolean,
   favoritesCount: number,
-  author: User
+  author: Profile
 }
 
 export interface MultipleArticle {
@@ -40,7 +40,7 @@ export interface SingleComment {
   createdAt: string,
   updatedAt: string,
   body: string,
-  author: User,
+  author: Profile,
 }
 
 export interface MultipleComments {
@@ -48,9 +48,17 @@ export interface MultipleComments {
 }
 
 export interface TagList {
-
+  tags: string[],
 }
 
 export interface Error {
   body: string[]
+}
+
+export interface ArticleRequest {
+  tag: string,
+  author: string,
+  favorited: string,
+  limit: string,
+  offset: string,
 }

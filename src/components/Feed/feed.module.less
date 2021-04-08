@@ -1,4 +1,4 @@
-@import "src/base";
+@import "../../base";
 
 .feedSection {
   width: 855px;
@@ -22,10 +22,10 @@
   color: @link;
 }
 
-.selected {
+.tabSelected {
   color: @green;
   border-bottom: 2px solid @green;
-  pointer-events: none;
+  //pointer-events: none;
 }
 
 .notused {
@@ -112,7 +112,7 @@
   }
 }
 
-.pageNav {
+.feedNav {
   display: inline-block;
   width: 855px;
   padding-left: 0;
@@ -121,11 +121,13 @@
   line-height: 38px;
 }
 
-.pageNavItem {
+
+
+.feedNavItem {
   display: inline;
 }
 
-.pageNavLink {
+.feedNavLink {
   color: @green;
   padding: 8px 12px;
   border: 1px solid #ddd;

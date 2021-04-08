@@ -32,7 +32,6 @@ export class UserStore{
       if (ret) {
         this.currentUser = res.data.user;
         this.settingUser = res.data.user;
-        articleStore.selectedTab = res.data.user.username;
       }
     }
     catch (e) {

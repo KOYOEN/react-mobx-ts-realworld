@@ -30,8 +30,8 @@ class App extends React.Component {
     );
   }
 
-  async componentDidMount() {
-    await userStore.pullUser();
+  componentDidMount() {
+    userStore.pullUser();
   }
 }
 

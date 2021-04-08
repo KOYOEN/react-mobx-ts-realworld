@@ -64,7 +64,7 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 3000,
-    // historyApiFallback: true,
+    historyApiFallback: true,
     open: true, // open page when start
     // watchContentBase: true,
   },

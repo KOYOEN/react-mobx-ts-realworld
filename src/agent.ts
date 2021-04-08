@@ -84,26 +84,58 @@ export const Auth = {
 
 
 export const Article = {
-  getFeedList: async (params) => {
+  getListByAuthor: async ({author, offset, limit}: ArticleRequest) => {
     try {
       return await axios({
         method: 'get',
-        url: APIURL + `/articles/${params}?limit=10`,
+        url: APIURL + `/articles?author=${author}&offset=${offset}&limit=${limit}`,
       });
     } catch (error) {
       return error.reponse;
     }
   },
-  getFeed: async () => {
+  getListByTag: async ({tag, offset, limit} :ArticleRequest) => {
     try {
       return await axios({
         method: 'get',
-        url: APIURL + "/articles/feed",
+        url: APIURL + `/articles?tag=${tag}&offset=${offset}&limit=${limit}`,
+      });
+    } catch (error) {
+      return error.reponse;
+    }
+  },
+  getListByFavorited: async ({favorited, offset, limit} :ArticleRequest) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles?favorited=${favorited}&offset=${offset}&limit=${limit}`,
+      });
+    } catch (error) {
+      return error.reponse;
+    }
+  },
+  getGlobalList: async ({offset, limit} :ArticleRequest) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles?limit=${limit}&offset=${offset}`,
+      });
+    } catch (error) {
+      return error.reponse;
+    }
+  },
+  getPersonalList: async ({offset, limit} :ArticleRequest) => {
+    tokenPlugin();
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles/feed?limit=${limit}&offset=${offset}`,
       });
     } catch (error) {
       return error.response;
     }
   },
+
   getComments: async (slug) => {
     try {
       return await axios({

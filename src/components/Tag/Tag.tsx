@@ -10,7 +10,6 @@ const articleStore = ArticleStore.getInstance();
 export class Tag extends React.Component {
   @computed
   get renderPopularTags() {
-    console.log("check");
     return articleStore.popularTags.tags.map( (tag, i) => {
       return <a className={"tag"} key={i}>{tag}</a>
     });

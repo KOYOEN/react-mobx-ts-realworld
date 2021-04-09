@@ -23,7 +23,7 @@ export class FeedBar extends React.Component {
           <li className={`${styles.feedBarItem} ${(!mainStore.token ? styles.notused : "")}` } key={0}>
             <Link
               to={`/?feed=personal&offset=0`}
-              className={`${styles.feedBarLink} ${(isMyFeed ? styles.selected : "")}`}
+              className={`${styles.feedBarLink} ${(isMyFeed ? styles.tabSelected : "")}`}
             >
               Your Feed
             </Link>
@@ -31,16 +31,16 @@ export class FeedBar extends React.Component {
           <li className={`${styles.feedBarItem} `} key={1}>
             <Link
               to={`/?feed=global&offset=0`}
-              className={`${styles.feedBarLink} ${isGlobalFeed ? styles.selected : ""}`}
+              className={`${styles.feedBarLink} ${isGlobalFeed ? styles.tabSelected : ""}`}
             >
               Global Feed
             </Link>
           </li>
           <li className={`${styles.feedBarItem} ${!isTagFeed ? styles.notused : ""} `} >
             <Link
-              to={`/tag=${this}`}
-              className={`${styles.feedBarLink} ${isTagFeed ? styles.selected : ""}` } >
-              #
+              to={`/?feed=tag&tag=&offset=0`}
+              className={`${styles.feedBarLink} ${isTagFeed ? styles.tabSelected : ""}` } >
+              {`# ${articleStore.tag}`}
             </Link>
           </li>
         </ul>

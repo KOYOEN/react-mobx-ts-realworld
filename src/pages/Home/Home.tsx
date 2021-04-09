@@ -46,7 +46,7 @@ class Home extends React.Component<Props> {
           this.props.history.push(`/?feed=personal&offset=0`);
         }
         runInAction(() => {
-          articleStore.setArticleList(text);
+          articleStore.getArticleList(text);
         })
       }, {fireImmediately: true});
   }

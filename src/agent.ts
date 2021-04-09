@@ -1,4 +1,4 @@
-import {ArticleRequest, User} from "./model"
+import {ArticleRequest, SingleArticle, User} from "./model"
 import { MainStore } from "./stores";
 import {AxiosError, AxiosResponse} from "axios";
 const APIURL = "https://conduit.productionready.io/api";
@@ -135,7 +135,16 @@ export const Article = {
       return error.response;
     }
   },
-
+  getArticle: async (slug) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles/${slug}`,
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
   getComments: async (slug) => {
     try {
       return await axios({
@@ -161,7 +170,18 @@ export const Article = {
       return await axios({
         method: 'post',
         url: APIURL + `/articles/${slug}/favorite`,
-      })
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
+  createArticle: async (article: SingleArticle) => {
+    try {
+      return await axios({
+        method: 'post',
+        url: APIURL + `/articles`,
+        data: article,
+      });
     } catch (error) {
       return error.response;
     }

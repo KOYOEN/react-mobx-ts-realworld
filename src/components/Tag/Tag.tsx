@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {ArticleStore} from "../../stores";
 import {computed} from "mobx";
 import styles from "./tag.module.less";
@@ -11,7 +12,7 @@ export class Tag extends React.Component {
   @computed
   get renderPopularTags() {
     return articleStore.popularTags.tags.map( (tag, i) => {
-      return <a className={"tag"} key={i}>{tag}</a>
+      return <Link to={`/?feed=tag&tag=${tag}&offset=0`} className={"tag"} key={i}>{tag}</Link>
     });
   }
   render() {

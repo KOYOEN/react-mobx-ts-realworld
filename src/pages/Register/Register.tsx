@@ -56,13 +56,13 @@ export class Register extends React.Component<Props> {
             {this.renderError}
             <form onSubmit={this.handleSubmit}>
               <fieldset className={styles.formGroup}>
-                <input className={styles.formInput} type="text" name="username" placeholder={"Username"}/>
+                <input className={styles.formInput} type={"text"} name={"username"} placeholder={"Username"}/>
               </fieldset>
               <fieldset className={styles.formGroup}>
-                <input className={styles.formInput} type="email" name="email" placeholder={"Email"} />
+                <input className={styles.formInput} type={"email"} name={"email"} placeholder={"Email"} />
               </fieldset>
               <fieldset className={styles.formGroup}>
-                <input className={styles.formInput} type="password" name="password" placeholder={"Password"}/>
+                <input className={styles.formInput} type={"password"} name={"password"} placeholder={"Password"}/>
               </fieldset>
               <button className={styles.formBtn}>Sign Up</button>
             </form>

@@ -1,25 +1,11 @@
-@import "../../base";
-
-.settingPage {
-  display: block;
-}
-
+@import '../../base';
 
 .col {
-  text-align: center;
-  width: 450px;
-  padding: 0 25px;
-  margin: 0 auto;
+  width: 83%;
+  margin-left: 8.3%;
+  padding: 0 15px;
 }
 
-.textH1Center {
-  font-size: 40px;
-  margin-bottom: 8px;
-}
-
-.textPCenter {
-  margin-bottom: 16px;
-}
 
 .formInput {
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -74,19 +60,17 @@
 }
 
 
-
-.logoutBtn {
-  display: block;
-  padding: 6px 24px;
-  background-color: @white;
-  border: 1px solid @red;
-  border-radius: 4px;
-  color: @red;
-  font-size: 20px;
-  &:focus {
-    border-color: @blue;
-    outline: none;
+.tagList {
+  line-height: 1.5;
+  span {
+    color: @white;
+    font-size: 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: @gray;
   }
 }
 
-
+.delIcon {
+  content: 'X';
+}

@@ -18,16 +18,16 @@ export interface Profile {
 }
 
 export interface SingleArticle {
-  slug: string,
+  slug?: string,
   title: string,
   description: string,
   body: string,
   tagList: string[],
-  createdAt: string,
-  updatedAt: string,
-  favorited: boolean,
-  favoritesCount: number,
-  author: Profile
+  createdAt?: string,
+  updatedAt?: string,
+  favorited?: boolean,
+  favoritesCount?: number,
+  author?: Profile
 }
 
 export interface MultipleArticle {

@@ -49,32 +49,6 @@
   justify-content: space-between;
   margin-bottom: 16px;
 }
-.imgProfile {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  border-radius: 50px;
-}
-
-.wrapUserInfo {
-  display: flex;
-  height: 32px;
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  margin-left: 8px;
-
-  a {
-    color: @green;
-  }
-
-  span {
-    font-size: 12px;
-    color: @link;
-  }
-}
 
 
 .wrapButton {
@@ -122,7 +96,6 @@
 }
 
 
-
 .feedNavItem {
   display: inline;
 }
@@ -133,9 +106,19 @@
   border: 1px solid #ddd;
 }
 
+.feedNavSelected {
+  background-color: @green;
+  color: @white;
+}
+
 .wrapTagList {
   display: flex;
   justify-content: space-between;
+}
+
+.tagList {
+  max-width: 50%;
+  word-break: break-word;
 }
 
 .tag {

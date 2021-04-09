@@ -14,22 +14,21 @@ export class FeedNav extends React.Component<Props> {
 
   @computed
   get renderFeedNavItem() {
-    const articlesCount = articleStore.articleData.articlesCount/10;
+    const articlesCount = articleStore.articleListData.articlesCount/10;
     const query = this.props.location.search.split('&').slice(0, -1).join('&');
     return (
       [...Array(articlesCount)].map((_, i) =>
-        <li className={styles.feedNavItem} key={i + 1}>
-          <a
-            href={`${query}&offset=${i}`}
-            className={styles.feedNavLink}>{i + 1}</a>
-        </li>)
+        <li className={`${styles.feedNavItem}`} key={i}>
+          <a className={`${styles.feedNavLink} ${ i == articleStore.offset/10 ? styles.feedNavSelected : ""}` } href={`${query}&offset=${i*10}`}>{i + 1}</a>
+        </li>
+      )
     );
   }
 
   render() {
     return (
       <ul className={styles.feedNav}>
-        {articleStore.articleData && this.renderFeedNavItem}
+        {articleStore.articleListData && this.renderFeedNavItem}
       </ul>
     );
   }

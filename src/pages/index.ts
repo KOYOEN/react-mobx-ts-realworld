@@ -1,4 +1,4 @@
-// export { Article } from "./Article";
+export { Editor } from "./Editor";
 export { Home } from "./Home";
 export { Login } from "./Login";
 export { Register } from "./Register";

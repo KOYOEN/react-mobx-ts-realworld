@@ -50,63 +50,66 @@ export class Settings extends React.Component<Props> {
 
     return (userStore.settingUser) &&
       (
-       <div className={styles.settingPage} >
-        <div className={styles.container} >
-          <div className={styles.row} >
-            <h1 className={styles.textH1Center}>Your Settings</h1>
-            {this.renderError}
-            <form>
-              <fieldset className={styles.formGroup} >
-                <input type="text"
-                       name={"image"}
-                       className={styles.formInput}
-                       placeholder={"URL of profile picture"}
-                       value={user.image}
-                       onChange={this.handleChange}
-                />
-              </fieldset>
-              <fieldset className={styles.formGroup} >
-                <input type="text"
-                       name={"username"}
-                       className={styles.formInput}
-                       placeholder={"Username"}
-                       value={user.username}
-                       onChange={this.handleChange}
-                />
-              </fieldset>
-              <fieldset className={styles.formGroup} >
+        <div className={styles.settingPage}>
+          <section className={"container"}>
+            <div className={"row"}>
+              <div className={styles.col}>
+                <h1 className={styles.textH1Center}>Your Settings</h1>
+                {this.renderError}
+                <form>
+                  <fieldset className={styles.formGroup}>
+                    <input type="text"
+                           name={"image"}
+                           className={styles.formInput}
+                           placeholder={"URL of profile picture"}
+                           value={user.image}
+                           onChange={this.handleChange}
+                    />
+                  </fieldset>
+                  <fieldset className={styles.formGroup}>
+                    <input type="text"
+                           name={"username"}
+                           className={styles.formInput}
+                           placeholder={"Username"}
+                           value={user.username}
+                           onChange={this.handleChange}
+                    />
+                  </fieldset>
+                  <fieldset className={styles.formGroup}>
                 <textarea className={styles.formTextArea}
                           name={"bio"}
                           placeholder={"Short bio about you"}
                           value={user.bio}
                           onChange={this.handleChange}
                 />
-              </fieldset>
-              <fieldset className={styles.formGroup} >
-                <input type="email"
-                       className={styles.formInput}
-                       placeholder={"Email"}
-                       value={user.email}
-                       onChange={this.handleChange}
-                />
-              </fieldset>
-              <fieldset className={styles.formGroup} >
-                <input type="password"
-                       name={"password"}
-                       className={styles.formInput}
-                       placeholder={"New Password"}
-                       value={user.password}
-                       onChange={this.handleChange}
-                />
-              </fieldset>
-              <button className={`${styles.btn} ${styles.formBtn}`} onClick={this.handleUpdate}>Update Settings</button>
-            </form>
-            <hr />
-            <button className={styles.logoutBtn}  onClick={this.handleLogout}>Or click here to logout</button>
-          </div>
+                  </fieldset>
+                  <fieldset className={styles.formGroup}>
+                    <input type="email"
+                           className={styles.formInput}
+                           placeholder={"Email"}
+                           value={user.email}
+                           onChange={this.handleChange}
+                    />
+                  </fieldset>
+                  <fieldset className={styles.formGroup}>
+                    <input type="password"
+                           name={"password"}
+                           className={styles.formInput}
+                           placeholder={"New Password"}
+                           value={user.password}
+                           onChange={this.handleChange}
+                    />
+                  </fieldset>
+                  <button className={`${styles.btn} ${styles.formBtn}`} onClick={this.handleUpdate}>Update Settings
+                  </button>
+                </form>
+                <hr/>
+                <button className={styles.logoutBtn} onClick={this.handleLogout}>Or click here to logout</button>
+              </div>
+            </div>
+          </section>
         </div>
-      </div>
-    );
+      );
   }
   componentDidMount() {
 

@@ -1,19 +1,24 @@
-import {ArticleRequest, MultipleArticle, TagList} from "../model";
+import {ArticleRequest, MultipleArticle, SingleArticle, TagList} from "../model";
 import {action, observable} from "mobx";
 import {Article, Tags} from "../agent";
 
 
 export class ArticleStore {
-  @observable articleData: MultipleArticle = null;
+  @observable articleListData: MultipleArticle = null;
   @observable currentList: string;
   @observable tabList: [];
   @observable popularTags: TagList = null;
   @observable selectedTab:string = 'global';
+  @observable offset: number = 0;
+  @observable tag: string = '';
+
 
   @action
-  async setArticleList(paramsString: string) {
+  async getArticleList(paramsString: string) {
     const searchParams = new URLSearchParams(paramsString);
-    this.selectedTab = searchParams.get('feed');
+    this.selectedTab = searchParams.get('feed') || 'personal';
+    this.offset = parseInt(searchParams.get('offset'));
+    this.tag = searchParams.get('tag') || '';
 
     const req:ArticleRequest = {
       author: searchParams.get('author') || "",
@@ -30,7 +35,7 @@ export class ArticleStore {
       res = await Article.getListByFavorited(req);
     }else if (this.selectedTab === "author") {
       res = await Article.getListByAuthor(req);
-    }else if (this.selectedTab === "Tag") {
+    }else if (this.selectedTab === "tag") {
       res = await Article.getListByTag(req);
     }else {
       res = await Article.getPersonalList(req);
@@ -38,7 +43,7 @@ export class ArticleStore {
 
     const ret = res.status === 200;
     if (ret) {
-      this.articleData = res.data;
+      this.articleListData = res.data;
     }else {
       return res.data.errors;
     }
@@ -49,6 +54,36 @@ export class ArticleStore {
     if (res.status === 200) {
       this.popularTags = res.data;
     }else {
+      return res.data.errors;
+    }
+  }
+
+  @action
+  async createArticle() {
+    const article:SingleArticle = {
+      title: "",
+      description: "",
+      body: "",
+      tagList: [],
+    }
+
+    const res = await Article.createArticle(article);
+    if (res.status === 200) {
+      return true;
+    }else {
+      console.log(res.data.errors)
+      return false;
+    }
+  }
+
+  @action
+  async getArticle(slug: string):Promise<SingleArticle> {
+
+    const res = await Article.getArticle(slug);
+    if (res.status === 200) {
+      return res.data.article;
+    }else {
+      console.log(res.data.errors);
       return res.data.errors;
     }
   }

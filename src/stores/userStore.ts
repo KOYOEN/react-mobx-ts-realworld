@@ -32,6 +32,7 @@ export class UserStore{
       if (ret) {
         this.currentUser = res.data.user;
         this.settingUser = res.data.user;
+        console.log("pullUser Check!, ", this.currentUser);
       }
     }
     catch (e) {

@@ -2,33 +2,36 @@ import React from "react";
 import {SingleArticle} from "../../model";
 import {computed} from "mobx";
 import styles from "./article.module.less";
+import {ArticleStore} from "../../stores";
+import {ArticleComment} from "./ArticleComment";
 
-interface Props {
-  article: SingleArticle
-}
 
-export class ArticleMain extends React.Component<Props> {
+const articleStore = ArticleStore.getInstance();
+
+export class ArticleMain extends React.Component {
 
   @computed
   get renderTagList() {
-    return this.props.article.tagList.map( (tag, i) =>
-      <li className={styles.tag}  key={i}>
+    return articleStore.currentArticle.tagList.map( (tag, i) =>
+      <li className={"styles.tag"}  key={i}>
         {tag}
       </li>
     )
   }
 
   render() {
-    return (
+    return (articleStore.currentArticle) && (
       <div className={"container page"}>
         <article className={styles.col}>
           <div>
-            <p>{this.props.article.body}</p>
+            <p>{articleStore.currentArticle.body}</p>
           </div>
-          <ul className={styles.tagList}>
+          <ul className={"styles.tagList"}>
             {this.renderTagList}
           </ul>
         </article>
+        <hr />
+        <ArticleComment />
       </div>
     );
   }

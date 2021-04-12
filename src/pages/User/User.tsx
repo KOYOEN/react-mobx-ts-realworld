@@ -1,10 +1,10 @@
 import React from "react";
 
-class User extends React.Component {
+export class User extends React.Component {
   render() {
     return (
-      <div>
-
+      <div className={"profilePage"}>
+        
       </div>
     );
   }

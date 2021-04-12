@@ -1,24 +1,33 @@
 import React from 'react';
-import styles from "../Settings/setting.module.less";
 import {observable} from "mobx";
 import {SingleArticle} from "../../model";
-import {UserInfo} from "../../components/UserInfo/UserInfo";
 import {ArticleBanner} from "./ArticleBanner";
 import {ArticleMain} from "./ArticleMain";
+import {ArticleComment} from "./ArticleComment";
+import {RouteComponentProps} from "react-router-dom";
+import {ArticleStore} from "../../stores";
+import {observer} from "mobx-react";
 
-export class Article extends React.Component {
-  @observable article:SingleArticle;
+interface Props extends RouteComponentProps {
+  match
+}
+
+const articleStore = ArticleStore.getInstance();
+
+@observer
+export class Article extends React.Component<Props> {
 
   render() {
-    return (
+    return (articleStore.currentArticle) && (
       <div className={"articlePage"}>
-        <ArticleBanner article={this.article} />
-        <ArticleMain article={this.article} />
-        <hr />
-        
+        <ArticleBanner />
+        <ArticleMain />
       </div>
     );
   }
 
+  componentDidMount() {
+    articleStore.getArticle(this.props.match.params.slug);
+  }
 }
 

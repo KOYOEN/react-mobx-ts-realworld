@@ -1,11 +1,12 @@
-import {ArticleRequest, MultipleArticle, SingleArticle, TagList} from "../model";
+import {ArticleRequest, MultipleArticle, MultipleComments, SingleArticle, TagList} from "../model";
 import {action, observable} from "mobx";
 import {Article, Tags} from "../agent";
 
 
 export class ArticleStore {
   @observable articleListData: MultipleArticle = null;
-  @observable currentList: string;
+  @observable currentArticle: SingleArticle = null;
+  @observable currentComments: MultipleComments = null;
   @observable tabList: [];
   @observable popularTags: TagList = null;
   @observable selectedTab:string = 'global';
@@ -77,17 +78,29 @@ export class ArticleStore {
   }
 
   @action
-  async getArticle(slug: string):Promise<SingleArticle> {
-
+  async getArticle(slug: string) {
     const res = await Article.getArticle(slug);
     if (res.status === 200) {
-      return res.data.article;
+      this.currentArticle = res.data.article;
     }else {
       console.log(res.data.errors);
-      return res.data.errors;
     }
   }
 
+  @action
+  async addComment(slug: string, body: string) {
+    const addRes = await Article.addComment(slug, body);
+    if (addRes.status === 200) {
+      const getRes = await Article.getComments(slug);
+      if (getRes === 200) {
+        this.currentComments = getRes.data.comments;
+      }else {
+        console.log(getRes.data.errors);
+      }
+    } else {
+      console.log(addRes.data.errors);
+    }
+  }
 
   private static instance: ArticleStore;
 

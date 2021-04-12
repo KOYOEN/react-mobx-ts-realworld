@@ -15,7 +15,7 @@ const userStore = UserStore.getInstance();
 const articleStore = ArticleStore.getInstance();
 
 @observer
-class Home extends React.Component<Props> {
+export class Home extends React.Component<Props> {
 
   disposer: Disposer;
 
@@ -35,7 +35,6 @@ class Home extends React.Component<Props> {
 
   componentDidMount() {
     articleStore.setPopularTags();
-
     this.disposer = reaction(() => this.props.location.search,
       text => {
         if (mainStore.token === null) {
@@ -56,4 +55,3 @@ class Home extends React.Component<Props> {
   }
 }
 
-export default Home;

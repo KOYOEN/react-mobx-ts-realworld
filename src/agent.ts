@@ -185,6 +185,21 @@ export const Article = {
     } catch (error) {
       return error.response;
     }
+  },
+  addComment: async (slug: string, body: string) => {
+    try {
+      return await axios({
+        method: 'post',
+        url: APIURL + `/articles/${slug}/comments`,
+        data: {
+          comment: {
+            body: body
+          }
+        }
+      })
+    } catch (error) {
+      return error.response;
+    }
   }
 }
 

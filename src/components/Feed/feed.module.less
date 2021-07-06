@@ -1,0 +1,135 @@
+@import "../../base";
+
+.feedSection {
+  width: 855px;
+  padding: 0 15px;
+}
+
+.feedBarList {
+  height: 40px;
+  color: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  line-height: 40px;
+}
+
+.feedBarItem {
+  height: 40px;
+  display: inline;
+}
+
+.feedBarLink {
+  padding: 10px 16px;
+  color: @link;
+}
+
+.tabSelected {
+  color: @green;
+  border-bottom: 2px solid @green;
+  //pointer-events: none;
+}
+
+.notused {
+  display: none;
+}
+
+
+.articlePreview {
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+}
+
+.articleMeta {
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+
+.wrapButton {
+  float: right;
+}
+
+.buttonLike {
+  padding: 4px 8px;
+  border: 1px solid @green;
+  background-color: transparent;
+  border-radius: 4px;
+  & :before {
+    content: "♥";
+    margin-right: 4px;
+  }
+}
+
+.iconHeart {
+  color: @green;
+}
+
+.linkPreview {
+  clear: both;
+  color: @link;
+  p {
+    margin-bottom: 15px;
+  }
+  h1 {
+    font-weight: 600;
+    font-size: 24px;
+    color: black;
+  }
+  span {
+    font-size: 14px;
+  }
+}
+
+.feedNav {
+  display: inline-block;
+  width: 855px;
+  padding-left: 0;
+  margin: 16px 0;
+  word-wrap: break-word;
+  line-height: 38px;
+}
+
+
+.feedNavItem {
+  display: inline;
+}
+
+.feedNavLink {
+  color: @green;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+}
+
+.feedNavSelected {
+  background-color: @green;
+  color: @white;
+}
+
+.wrapTagList {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tagList {
+  max-width: 50%;
+  word-break: break-word;
+}
+
+.tag {
+  display: inline;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 10px;
+  margin: 0 2px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #aaa;
+  background-color: @white;
+}

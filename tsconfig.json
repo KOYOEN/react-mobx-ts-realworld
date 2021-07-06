@@ -8,6 +8,16 @@
     "jsx": "react",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "allowJs": true,
     "experimentalDecorators": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "camel",
+        }
+      }
+    ]
   }
+
 }

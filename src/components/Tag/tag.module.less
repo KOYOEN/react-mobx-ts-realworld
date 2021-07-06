@@ -1,0 +1,36 @@
+@import "../../base";
+
+.sidebar {
+  padding: 5px 10px 10px;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+  word-break: break-word;
+}
+
+.tagList {
+  display: flex;
+  width: 235px;
+  line-height: 1.5;
+  flex-wrap: wrap;
+  a {
+    padding: 0 6px;
+    margin: 2px;
+    color: @white;
+    font-size: 14px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: @gray;
+
+    &:hover {
+      background-color: @darkgray;
+    }
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+.tagSelected {
+  color: @gray;
+  background-color: @darkgray;
+}

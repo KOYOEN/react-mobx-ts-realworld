@@ -1,0 +1,76 @@
+@import '../../base';
+
+.col {
+  width: 83%;
+  margin-left: 8.3%;
+  padding: 0 15px;
+}
+
+
+.formInput {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  width: calc(100% - 50px);
+  padding: 12px 24px;
+  font: inherit;
+  font-size: 20px;
+  color: @gray;
+  border-radius: 4px;
+  &:focus {
+    border-color: @blue;
+    outline: none;
+  }
+}
+
+.formTextArea {
+  width: calc(100% - 50px);
+  height: 200px;
+  padding: 12px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 20px;
+  border-radius: 4px;
+  color: @gray;
+  resize: vertical;
+  &:focus {
+    border-color: @blue;
+    outline: none;
+  }
+}
+
+.formGroup {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.btn {
+  display: block;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  font-size: 20px;
+}
+
+.formBtn {
+  margin-left: auto;
+  margin-right: 0;
+  background-color: @green;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: @white;
+  font-size: 20px;
+  //cursor: not-allowed;
+}
+
+
+.tagList {
+  line-height: 1.5;
+  span {
+    color: @white;
+    font-size: 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: @gray;
+  }
+}
+
+.delIcon {
+  content: 'X';
+}

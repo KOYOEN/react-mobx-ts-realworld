@@ -1,11 +1,13 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -17,7 +19,9 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              '@babel/preset-env',
+              ['@babel/preset-env',{
+                "targets": {"chrome": "55"}
+              }],
               '@babel/preset-react',
               '@babel/preset-typescript'
             ],
@@ -28,30 +32,31 @@ module.exports = {
         }
       },
       {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
+      {
         test: /\.less$/,
-        include: path.resolve(__dirname, 'src/less'),
         use: [
-          MiniCssExtractPlugin.loader,
+          {loader: 'style-loader'},
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              sourceMap: true,
-              lessOptions: {
-                paths: [path.resolve(__dirname, "node_modules")],
-              }
+              modules: {
+                mode: "local",
+                localIdentName: '[name]__[local]--[hash:base64:5]'
+              },
+              sourceMap: true
             }
-          }
+          },
+          {loader: 'less-loader', options: {sourceMap: true}}
         ],
-      },
+      }
     ],
   },
-  plugins: [new MiniCssExtractPlugin({ filename: 'app.css'})],
+  plugins: [new HtmlWebpackPlugin({
+    template: 'public/index.html'
+  })],
   devtool: 'source-map',
   mode: 'development',
   resolve: {
@@ -59,9 +64,9 @@ module.exports = {
   },
   devServer: {
     host: 'localhost',
-    port: 8080,
-    noInfo: true,
+    port: 3000,
     historyApiFallback: true,
     open: true, // open page when start
+    // watchContentBase: true,
   },
 };

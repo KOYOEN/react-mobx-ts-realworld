@@ -1,65 +1,218 @@
-
+import {ArticleRequest, SingleArticle, User} from "./model"
+import { MainStore } from "./stores";
+import {AxiosError, AxiosResponse} from "axios";
 const APIURL = "https://conduit.productionready.io/api";
 
-
-
-
+const mainStore = MainStore.getInstance();
 
 const axios = require('axios');
 
-const getUserToken = (email, password) => {
-  return axios({
-    method: 'post',
-    url: APIURL,
-    data: {
-      "user": {
-        "email": email,
-        "password": password
-      }
+const tokenPlugin = () => {
+  if (mainStore.token) {
+    axios.defaults.headers.common["Authorization"] = `Token ${mainStore.token}`;
+  }
+};
+
+export const Auth = {
+  current: async () => {
+    tokenPlugin();
+    try {
+      return axios({
+        method: 'get',
+        url: APIURL + "/user"
+      });
+    } catch (error) {
+      return error.response;
     }
-  });
+  },
+  login: async ({email, password}: User) => {
+    try {
+      return await axios({
+        method: 'post',
+        url: APIURL + "/users/login",
+        data: {
+          "user": {
+            "email": email,
+            "password": password,
+          }
+        }
+      });
+    } catch (error) {
+      return error.response;
+    }
+
+  },
+  register: async ({username, email, password}: User) => {
+    try {
+      return await axios({
+        method: 'post',
+        url: APIURL + "/users",
+        data: {
+          "user": {
+            "username": username,
+            "email": email,
+            "password": password,
+          }
+        }
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
+  update: async ( {username, email, password, bio, image}: User) => {
+    tokenPlugin();
+    try {
+      return await axios({
+        method: 'put',
+        url: APIURL + "/user",
+        data: {
+          "user": {
+            "username": username,
+            "email": email,
+            "password": password,
+            "bio": bio,
+            "image": image,
+          }
+        }});
+    }
+    catch (error) {
+      return error.response
+    }
+  }
 }
 
-const Auth = {
-  current: () => axios({
-    method:'get',
-    url: APIURL + "/user"
-  }),
-  login: (email, password) => axios({
-    method: 'post',
-    url: APIURL + "/users/login",
-    data: {
-      "user": {
-        "email": email,
-        "password": password,
-      }
+
+
+export const Article = {
+  getListByAuthor: async ({author, offset, limit}: ArticleRequest) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles?author=${author}&offset=${offset}&limit=${limit}`,
+      });
+    } catch (error) {
+      return error.reponse;
     }
-  }),
-  register: (username, email, password) => axios({
-    method: 'post',
-    url: APIURL + "/users",
-    data: {
-      "user":{
-        "username": username,
-        "email": email,
-        "password": password,
-      }
+  },
+  getListByTag: async ({tag, offset, limit} :ArticleRequest) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles?tag=${tag}&offset=${offset}&limit=${limit}`,
+      });
+    } catch (error) {
+      return error.reponse;
     }
-  }),
-  update: (username, email, password, image, bio) => axios({
-    method: 'put',
-    url: APIURL + "/user",
-    data: {
-      "user": {
-        "username": username,
-        "email": email,
-      }
+  },
+  getListByFavorited: async ({favorited, offset, limit} :ArticleRequest) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles?favorited=${favorited}&offset=${offset}&limit=${limit}`,
+      });
+    } catch (error) {
+      return error.reponse;
     }
-  })
+  },
+  getGlobalList: async ({offset, limit} :ArticleRequest) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles?limit=${limit}&offset=${offset}`,
+      });
+    } catch (error) {
+      return error.reponse;
+    }
+  },
+  getPersonalList: async ({offset, limit} :ArticleRequest) => {
+    tokenPlugin();
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles/feed?limit=${limit}&offset=${offset}`,
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
+  getArticle: async (slug) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles/${slug}`,
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
+  getComments: async (slug) => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/articles/${slug}/comments`,
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
+  deleteComments: async (slug) => {
+    try {
+      return await axios({
+        method: 'delete',
+        url: APIURL + `/articles/${slug}/comments/:id`,
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
+  setFavorite: async (slug) => {
+    try {
+      return await axios({
+        method: 'post',
+        url: APIURL + `/articles/${slug}/favorite`,
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
+  createArticle: async (article: SingleArticle) => {
+    try {
+      return await axios({
+        method: 'post',
+        url: APIURL + `/articles`,
+        data: article,
+      });
+    } catch (error) {
+      return error.response;
+    }
+  },
+  addComment: async (slug: string, body: string) => {
+    try {
+      return await axios({
+        method: 'post',
+        url: APIURL + `/articles/${slug}/comments`,
+        data: {
+          comment: {
+            body: body
+          }
+        }
+      })
+    } catch (error) {
+      return error.response;
+    }
+  }
 }
 
-export {
-  getUserToken
+export const Tags = {
+  getAll: async() => {
+    try {
+      return await axios({
+        method: 'get',
+        url: APIURL + `/tags`,
+      })
+    } catch (error) {
+      return error.response;
+    }
+  }
 }
-
 
